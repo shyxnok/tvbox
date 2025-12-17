@@ -44,7 +44,7 @@ ls
 mv ./jar/spider.jar/dist/dex.jar ./jar/bgcode.jar
 
 # 计算 MD5 哈希值
-md5sum ./jar/bgcode.jar | awk '{print $1}' > ./jar/bgcode.md5
+md5sum ./jar/bgcode.jar | awk '{print $1}' > ./jar/bgcode_md5.txt
 
 # 删除临时目录
 rm -rf ./jar/spider.jar/smali/com/github/catvod/spider
@@ -52,11 +52,11 @@ rm -rf ./jar/spider.jar/smali/com/github/catvod/parser
 rm -rf ./jar/spider.jar/build
 rm -rf ./jar/spider.jar/dist
 
-new_md5=$(cat ./jar/bgcode.md5)
+new_md5=$(cat ./jar/bgcode_md5.txt)
 
 # 替换a.json文件中的MD5码
 # 安全地读取文件内容并转义特殊字符
-new_md5=$(cat ./jar/bgcode.md5 | sed 's/[&/]/\\&/g')
+new_md5=$(cat ./jar/bgcode_md5.txt | sed 's/[&/]/\\&/g')
 
 old_str=";md5;[^,]*"
 new_str=";md5;$new_md5\""
@@ -66,4 +66,4 @@ sed -i.bak "s/$old_str/$new_str/g" ./jar/bgcode.json
 
 mkdir -p ./jar/bg
 cp ./jar/bgcode.jar ./jar/bg/bgcode.jar
-cp ./jar/bgcode.md5 ./jar/bg/bgcode.md5
+cp ./jar/bgcode_md5.txt ./jar/bg/bgcode_md5.txt
