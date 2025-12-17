@@ -31,13 +31,13 @@ jobs:
                  
              echo "version=$(bash ./config/version.sh)" >> $GITHUB_ENV
              echo "**发布时间：$(date +'%Y-%m-%d %H:%M:%S')**" >> bgcode.txt
-               echo "**md5：$(cat ./jar/bgcode_md5.txt)**" >> bgcode.txt
              mv version config/version
       - name: Build With Gradle
         run: |
           chmod +x gradlew ./jar/genJar.sh 
           ./gradlew assembleRelease --no-daemon
           ./jar/genJar.sh
+          echo "**md5：$(cat ./jar/bgcode_md5.txt)**" >> bgcode.txt
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
