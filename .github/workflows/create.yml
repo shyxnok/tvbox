@@ -27,6 +27,7 @@ jobs:
       - name: 复制jar包
         run: |
           git clone https://github.com/shyxnok/tvbox_Jar.git 
+          mkdir -p ./jar
           mv ./tvbox_Jar/jar/bgcode.jar ./jar/bgcode.jar
           mv ./tvbox_Jar/jar/bgcode.json ./bgcode.json
       - name: Upload APK
